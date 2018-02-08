@@ -1,0 +1,22 @@
+{
+	"presets": [["es2015"], "stage-2", "react", "react-boilerplate"],
+
+	"plugins": [
+		"react-hot-loader/babel",
+
+		[
+			"module-resolver",
+			{
+				"root": ["./src"],
+				"alias": {
+					"actions": "./src/app/actions",
+					"components": "./src/app/components",
+					"reducers": "./src/app/reducers",
+					"store": "./src/app/store",
+					"utils": "./src/app/utils",
+					"wrapper": "./src/app/wrapper"
+				}
+			}
+		]
+	]
+}
