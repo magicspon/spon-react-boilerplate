@@ -20,3 +20,4 @@ describe('App Component', () => {
 		expect(wrapper.find('#heading').type()).toEqual('h2')
 	})
 })
+

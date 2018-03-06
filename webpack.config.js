@@ -13,6 +13,8 @@ const appBase = path.resolve(process.env.PWD, 'src', 'app')
 const config = {
 	devtool: 'cheap-module-eval-source-map',
 
+	mode: 'development',
+
 	entry: [
 		'react-hot-loader/patch',
 		'webpack-dev-server/client?http://localhost:8080',
@@ -32,7 +34,7 @@ const config = {
 	devServer: {
 		port: port,
 		hot: true,
-		open: true
+		open: false
 	},
 
 	resolve: {
@@ -50,9 +52,26 @@ const config = {
 				exclude: /node_modules/
 			},
 			{
+				test: /\.tsx?$/,
+				loaders: ['babel-loader', 'ts-loader'],
+				exclude: /node_modules/
+			},
+			{
 				test: /\.js$/,
 				loaders: ['babel-loader'],
-				exclude: /node_modules/
+				exclude: /node_modules/,
+
+				presets: [['es2015'], 'stage-2', 'react', 'react-boilerplate'],
+
+				plugins: [
+					'react-hot-loader/babel',
+					[
+						'react-css-modules',
+						{
+							context: path.resolve(__dirname, 'src')
+						}
+					]
+				]
 			},
 			{
 				test: /\.css$/,
@@ -103,12 +122,11 @@ const config = {
 			filename: 'index.html',
 			inject: 'body'
 		}),
-		new webpack.optimize.ModuleConcatenationPlugin(),
-		new ExtractTextPlugin({
-			filename: './styles/style.css',
-			disable: false,
-			allChunks: true
-		}),
+		// new ExtractTextPlugin({
+		// 	filename: './styles/style.css',
+		// 	disable: false,
+		// 	allChunks: true
+		// }),
 		new webpack.HotModuleReplacementPlugin()
 	]
 }
